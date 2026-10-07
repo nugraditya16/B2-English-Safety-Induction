@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Hour Scaffold Safety Briefing Master</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .pulse-glow { animation: pulseGlow 2s infinite; }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.5); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+    <header class="bg-slate-800 border-b border-slate-700 p-4 shadow-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>
+                <h1 class="text-xl font-bold text-amber-400 flex items-center gap-2">
+                    🏗️ 12-Hour Safety Briefing Master
+                </h1>
+                <p class="text-xs text-slate-400">Metode Kilat Hafalan & Audio Trainer Bahasa Inggris (B2 Level)</p>
+            </div>
+            <div class="flex gap-2 text-xs">
+                <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full font-medium">Target: 4 Pekerja</span>
+                <span class="bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-3 py-1 rounded-full font-medium">Ahli K3 Role</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 flex flex-col gap-6">
+        
+        <div class="flex bg-slate-800 p-1.5 rounded-xl border border-slate-700">
+            <button onclick="switchTab('timeline')" id="btn-timeline" class="flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all bg-amber-500 text-slate-950 shadow">
+                ⏱️ Jadwal 12 Jam
+            </button>
+            <button onclick="switchTab('script')" id="btn-script" class="flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all text-slate-300 hover:text-white">
+                📜 Naskah & Audio Trainer
+            </button>
+            <button onclick="switchTab('quiz')" id="btn-quiz" class="flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all text-slate-300 hover:text-white">
+                🧠 Latihan Memori
+            </button>
+        </div>
+
+        <!-- TAB 1: 12-Hour Timeline & Strategy -->
+        <section id="tab-timeline" class="space-y-4">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 shadow-lg pulse-glow">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold text-amber-300">Peta Waktu Pembelajaran 12 Jam</h2>
+                    <span id="timeline-counter" class="text-xs bg-slate-700 text-slate-300 px-2.5 py-1 rounded-md font-semibold">Tahap 1 dari 4</span>
+                </div>
+                
+                <!-- Timeline Progress Bar -->
+                <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden mb-6">
+                    <div id="timeline-bar" class="bg-amber-500 h-full w-1/4 transition-all duration-300"></div>
+                </div>
+
+                <!-- Phase Cards Container -->
+                <div id="timeline-card-container" class="bg-slate-900/60 border border-slate-700 rounded-xl p-5 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span id="phase-badge" class="bg-amber-500 text-slate-950 text-xs font-bold px-2.5 py-1 rounded">Jam 00:00 - 02:00</span>
+                        <h3 id="phase-title" class="text-base font-bold text-white">Deep Encoding & Mapping</h3>
+                    </div>
+                    <p id="phase-desc" class="text-sm text-slate-300">Pahami kerangka 3 pilar utama naskah. Jangan menghafal kata per kata, ingat kata kuncinya (Greeting -> Core Rules -> Closing).</p>
+                    <div class="bg-slate-800 p-3.5 rounded-lg border border-slate-700">
+                        <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider block mb-1">Aksi Praktik:</span>
+                        <p id="phase-action" class="text-xs text-slate-200">Baca naskah 3 kali sambil menandai struktur kalimat penghubungnya.</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex justify-between items-center mt-5">
+                    <button onclick="changePhase(-1)" id="prev-btn" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-semibold rounded-lg transition" disabled>
+                        ← Sebelumnya
+                    </button>
+                    <button onclick="changePhase(1)" id="next-btn" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold rounded-lg transition">
+                        Selanjutnya →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Tips Box -->
+            <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 text-xs text-slate-400 flex items-start gap-3">
+                <span class="text-lg">💡</span>
+                <p><strong>Tips Ahli K3:</strong> Di lapangan terbuka, suara Anda harus tegas dan berirama lambat. Jeda 1 detik di setiap tanda baca titik atau koma agar pekerja asing/lokal dapat menangkap instruksi keselamatan dengan jelas.</p>
+            </div>
+        </section>
+
+        <!-- TAB 2: Script & Audio Trainer -->
+        <section id="tab-script" class="hidden space-y-4">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 shadow-lg">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-amber-300">Naskah Safety Briefing & Audio Trainer</h2>
+                        <p class="text-xs text-slate-400">Klik tombol speaker untuk mendengarkan pelafalan Bahasa Inggris per blok.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs text-slate-400">Aksen:</label>
+                        <select id="voice-select" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-amber-500">
+                            <option value="en-US">English (US)</option>
+                            <option value="en-GB">English (UK)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Global Audio Controls -->
+                <div class="flex gap-2 mb-4">
+                    <button onclick="playAllAudio()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs py-2 px-3 rounded-lg transition flex items-center justify-center gap-2">
+                        ▶️ Dengar Seluruh Naskah Beruntun
+                    </button>
+                    <button onclick="stopAudio()" class="bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 font-bold text-xs py-2 px-4 rounded-lg transition">
+                        ⏹️ Stop
+                    </button>
+                </div>
+
+                <!-- Script Blocks List -->
+                <div id="script-blocks" class="space-y-4">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: Memory Practice Quiz -->
+        <section id="tab-quiz" class="hidden space-y-4">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 shadow-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold text-amber-300">Uji Cepat Hafalan Kata Kunci</h2>
+                    <span id="quiz-progress" class="text-xs bg-slate-700 text-slate-300 px-2.5 py-1 rounded-md font-semibold">Soal 1 dari 4</span>
+                </div>
+                
+                <div id="quiz-container" class="bg-slate-900/60 border border-slate-700 rounded-xl p-5 space-y-4">
+                    <!-- Populated via JS -->
+                </div>
+
+                <div id="quiz-result" class="hidden mt-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl text-center space-y-2">
+                    <h3 class="text-base font-bold text-amber-400">🎉 Sesi Latihan Selesai!</h3>
+                    <p class="text-xs text-slate-300" id="quiz-score-text">Anda siap membawakan briefing di depan 4 pekerja dengan percaya diri.</p>
+                    <button onclick="resetQuiz()" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold rounded-lg transition mt-2">
+                        Ulangi Latihan 🔄
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Data for 12-Hour Strategy Timeline
+        const phases = [
+            {
+                time: "Jam 00:00 - 02:00 (Sesi Pagi)",
+                title: "Deep Encoding & Mapping",
+                desc: "Pahami kerangka 3 pilar utama naskah. Jangan menghafal kata per kata, ingat kata kuncinya (Greeting -> Core Rules -> Closing).",
+                action: "Baca naskah 3 kali sambil menandai struktur kalimat penghubungnya."
+            },
+            {
+                time: "Jam 02:00 - 06:00 (Sesi Siang)",
+                title: "Kinesthetic Anchoring (Gerakan Tubuh)",
+                desc: "Ucapkan naskah sambil menunjuk bagian tubuh atau alat nyata (misal: sentuh helm saat bilang 'helmet', buat gestur kaitan saat bilang 'tie-off').",
+                action: "Latih gerakan fisik bersamaan dengan pengucapan lisan selama 15 menit."
+            },
+            {
+                time: "Jam 06:00 - 10:00 (Sesi Sore)",
+                title: "Mirroring & Tone Adjustment",
+                desc: "Berbicaralah di depan cermin dengan postur tegak, tatapan lurus, dan nada suara tegas khas Ahli K3 proyek.",
+                action: "Lakukan simulasi pengucapan di depan cermin tanpa melihat teks sebanyak 5 kali."
+            },
+            {
+                time: "Jam 10:00 - 12:00 (Sesi Akhir)",
+                title: "Final Simulation & Sleep Consolidation",
+                desc: "Simulasikan seolah-olah Anda berdiri di depan 4 pekerja scaffolding. Tutup mata, ucapkan lancar, lalu istirahat malam.",
+                action: "Uji coba terakhir tanpa teks, pastikan durasi penyampaian di bawah 1 menit."
+            }
+        ];
+
+        let currentPhaseIndex = 0;
+
+        function updateTimelineUI() {
+            const phase = phases[currentPhaseIndex];
+            document.getElementById('timeline-counter').innerText = `Tahap ${currentPhaseIndex + 1} dari 4`;
+            document.getElementById('timeline-bar').style.width = `${((currentPhaseIndex + 1) / 4) * 100}%`;
+            document.getElementById('phase-badge').innerText = phase.time;
+            document.getElementById('phase-title').innerText = phase.title;
+            document.getElementById('phase-desc').innerText = phase.desc;
+            document.getElementById('phase-action').innerText = phase.action;
+
+            document.getElementById('prev-btn').disabled = currentPhaseIndex === 0;
+            document.getElementById('next-btn').disabled = currentPhaseIndex === phases.length - 1;
+            document.getElementById('next-btn').innerText = currentPhaseIndex === phases.length - 1 ? 'Selesai ✨' : 'Selanjutnya →';
+        }
+
+        function changePhase(direction) {
+            currentPhaseIndex += direction;
+            if (currentPhaseIndex < 0) currentPhaseIndex = 0;
+            if (currentPhaseIndex >= phases.length) currentPhaseIndex = phases.length - 1;
+            updateTimelineUI();
+        }
+
+        // Data for Script Blocks & Audio
+        const scriptData = [
+            {
+                title: "Blok 1: Pembuka (Greeting & Objective)",
+                keyword: "Good morning, team... safety check...",
+                english: "Good morning, team. Before we start erecting the scaffolding, let’s do a quick safety check. As your OHS Officer, my priority is everyone's safety.",
+                indonesian: "Selamat pagi, tim. Sebelum kita mulai pasang scaffolding, mari cek keselamatan sebentar. Sebagai Ahli K3 kalian, prioritas saya adalah keselamatan semua."
+            },
+            {
+                title: "Blok 2: Aturan Inti (3 Pilar K3 Scaffolding)",
+                keyword: "First (PPE) -> Second (100% Tie-Off) -> Third (Ladders)",
+                english: "First, wear your full safety gear: helmet, harness, and non-slip shoes. Second, remember 100% tie-off; always clip your double lanyard to a solid anchor point at height. Third, use designated ladders only. Never climb the frame.",
+                indonesian: "Pertama, kenakan APD lengkap: helm, harness, dan sepatu anti-selip. Kedua, ingat 100% tie-off; selalu kaitkan dobel lanyard di ketinggian. Ketiga, gunakan tangga khusus, jangan memanjat rangka."
+            },
+            {
+                title: "Blok 3: Tambahan (Cuaca & Kerapian)",
+                keyword: "Weather & Housekeeping",
+                english: "Watch out for weather and keep the area clean. Stop working if heavy rain starts.",
+                indonesian: "Perhatikan cuaca dan jaga kebersihan area. Hentikan kerja jika hujan deras."
+            },
+            {
+                title: "Blok 4: Penutup & Tanya Jawab (Closing)",
+                keyword: "Unsafe condition -> Report -> Let's work safely",
+                english: "If you see any unsafe condition, report to me immediately. Any questions? Let's get to work safely!",
+                indonesian: "Jika ada kondisi tidak aman, lapor ke saya segera. Ada pertanyaan? Mari kerja dengan aman!"
+            }
+        ];
+
+        function renderScriptBlocks() {
+            const container = document.getElementById('script-blocks');
+            container.innerHTML = scriptData.map((block, index) => `
+                <div class="bg-slate-900/60 border border-slate-700/80 rounded-xl p-4 flex flex-col gap-3">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-xs font-bold text-amber-400 block">${block.title}</span>
+                            <span class="text-[11px] text-cyan-400 font-mono">🔑 Kata Kunci: ${block.keyword}</span>
+                        </div>
+                        <button onclick="playAudio(${index})" class="flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                            🔊 Dengar
+                        </button>
+                    </div>
+                    <div class="space-y-1.5">
+                        <p class="text-sm font-medium text-white bg-slate-800/80 p-3 rounded-lg border border-slate-700/50">"${block.english}"</p>
+                        <p class="text-xs text-slate-400 italic">Terjemahan: ${block.indonesian}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Web Speech API for TTS Audio playback
+        let currentUtterance = null;
+
+        function playAudio(index) {
+            if (!('speechSynthesis' in window)) {
+                alert('Maaf, browser Anda tidak mendukung pemutar suara otomatis.');
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const textToSpeak = scriptData[index].english;
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            const selectedLang = document.getElementById('voice-select').value;
+            
+            utterance.lang = selectedLang;
+            utterance.rate = 0.90; // Slightly slower for clear learning pronunciation
+            utterance.pitch = 1.0;
+
+            currentUtterance = utterance;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function playAllAudio() {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            let fullText = scriptData.map(b => b.english).join('. ');
+            const utterance = new SpeechSynthesisUtterance(fullText);
+            utterance.lang = document.getElementById('voice-select').value;
+            utterance.rate = 0.90;
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function stopAudio() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        // Quiz Data & Logic
+        const quizQuestions = [
+            {
+                question: "Apa kalimat pembuka yang tepat untuk memulai briefing scaffolding?",
+                options: [
+                    "Good morning, team. Before we start erecting the scaffolding, let's do a quick safety check.",
+                    "Hello guys, welcome to the office meeting today.",
+                    "Attention everyone, we have no work today."
+                ],
+                correct: 0
+            },
+            {
+                question: "Berapa persen ketentuan kaitan sabuk pengaman (tie-off) di ketinggian?",
+                options: [
+                    "50% tie-off",
+                    "100% tie-off",
+                    "Opsional saja"
+                ],
+                correct: 1
+            },
+            {
+                question: "Bagaimana aturan akses naik ke atas perancah?",
+                options: [
+                    "Panjat saja kerangkanya agar cepat",
+                    "Gunakan designated ladders / tangga khusus",
+                    "Lompat langsung ke platform atas"
+                ],
+                correct: 1
+            },
+            {
+                question: "Apa instruksi penutup jika pekerja melihat kondisi tidak aman?",
+                options: [
+                    "Diamkan saja sampai kecelakaan terjadi",
+                    "Laporkan ke Ahli K3 segera",
+                    "Perbaiki sendiri tanpa izin"
+                ],
+                correct: 1
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let score = 0;
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            const resultBox = document.getElementById('quiz-result');
+            
+            if (currentQuizIndex >= quizQuestions.length) {
+                container.classList.add('hidden');
+                resultBox.classList.remove('hidden');
+                document.getElementById('quiz-score-text').innerText = `Skor Anda ${score} dari ${quizQuestions.length}. Anda telah menguasai materi kunci keselamatan kerja!`;
+                return;
+            }
+
+            container.classList.remove('hidden');
+            resultBox.classList.add('hidden');
+            document.getElementById('quiz-progress').innerText = `Soal ${currentQuizIndex + 1} dari ${quizQuestions.length}`;
+
+            const q = quizQuestions[currentQuizIndex];
+            container.innerHTML = `
+                <h3 class="text-sm font-bold text-white mb-3">${q.question}</h3>
+                <div class="space-y-2">
+                    ${q.options.map((opt, i) => `
+                        <button onclick="checkAnswer(${i})" class="w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-slate-200 transition">
+                            ${String.fromCharCode(65 + i)}.${opt}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function checkAns
